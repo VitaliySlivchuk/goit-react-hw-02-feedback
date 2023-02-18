@@ -13,11 +13,11 @@ export class App extends Component {
     neutral: 0,
     bad: 0,
   };
-  incrementFeedback = event => {
-    const a = event.target.textContent.toLowerCase();
+  incrementFeedback = e => {
+    const lable = e.target.textContent.toLowerCase();
     this.setState(prevState => {
       return {
-        [a]: prevState[a] + 1,
+        [lable]: prevState[lable] + 1,
       };
     });
   };
@@ -31,6 +31,7 @@ export class App extends Component {
   };
   render() {
     const { good, neutral, bad } = this.state;
+    const options = Object.keys(this.state);
     const {
       incrementFeedback,
       countTotalFeedback,
@@ -39,7 +40,10 @@ export class App extends Component {
     return (
       <div className={css.app}>
         <Section title="Please leave feedback">
-          <FeedbackOptions onIncrementFeedback={incrementFeedback} />
+          <FeedbackOptions
+            options={options}
+            onIncrementFeedback={incrementFeedback}
+          />
         </Section>
         {countTotalFeedback() > 0 ? (
           <Section title="Statistics">
